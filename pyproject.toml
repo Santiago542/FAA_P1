@@ -1,0 +1,10 @@
+[project]
+name = "faa-p1"
+version = "0.1.0"
+description = "FAA Practica 1 - MyScikitLearn"
+requires-python = ">=3.14"
+dependencies = [
+    "jupyter>=1.1.1",
+    "numpy>=2.5.3",
+    "pandas>=3.0.6",
+]
