@@ -114,3 +114,7 @@ class MajorityClassifier(Classifier):
     def predict(self, test_data: np.ndarray, nominal_attributes: list[bool], dictionaries: list[dict[Any, int]]) -> np.ndarray:
         """Genera un array con tantas filas como tenga el conjunto de test y rellenándolo solo con la clase mayoritaria."""
         return np.full(shape=(test_data.shape[0],), fill_value=self.majority_class, dtype=np.float64)
+
+
+class NaiveBayes(Classifier):
+    pass
