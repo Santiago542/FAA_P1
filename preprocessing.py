@@ -5,7 +5,10 @@ import pandas as pd
 
 
 class Dataset:
-    """Representación de un dataset cargado desde un fichero CSV."""
+    """
+    Representación de un dataset cargado desde un fichero CSV.
+    Asume que la última columna del CSV es la clase objetivo.
+    """
 
     def __init__(self, file_path: str):
         """
@@ -61,6 +64,22 @@ class Dataset:
 
         # Apila las columnas en un array de numpy 2D
         self.data = np.column_stack(encoded_columns)
+
+    def standarize_data(self, mean: bool = True, std: bool = True) -> np.ndarray:
+        for column_ixd, is_nominal in enumerate(self.nominal_attributes[:-1]):
+            if is_nominal:  # Si el atributo es nominal, se ignora
+                continue
+
+            column_data = self.data[:, column_ixd]
+            mu = np.mean(column_data) if mean else 0.0
+            sigma = np.std(column_data) if std else 1.0
+
+            if sigma == 0:
+                sigma = 1.0 # Evita la división por cero si todos los valores son iguales
+
+            self.data[:, column_ixd] = (column_data - mu) / sigma
+
+        return self.data
 
     @property
     def num_samples(self) -> int:
